@@ -3500,7 +3500,17 @@ nav {
 
     .hero-background {
         width: 100%;
-        opacity: 0.3;
+        opacity: 1;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
+    }
+
+    .hero-background::after {
+        display: none !important;
+    }
+
+    .hero::after {
+        display: none !important;
     }
 
 .hero-content {
@@ -3528,7 +3538,10 @@ nav {
     }
     
     .features-section,
-    .brand-building-section,
+    .brand-building-section {
+        display: none !important;
+    }
+
     .services-section,
     .maps-section { background: var(--leather-dark); 
         padding: 60px 24px;
@@ -4179,6 +4192,7 @@ nav.nav-solid {
 
 /* ─── HERO — Light parchment tan to match brand-building-section ─── */
 .hero { background: #FAF4EA !important; }
+@media (max-width: 900px) { .hero { background: transparent !important; } }
 
 /* ─── LOGO CAROUSEL — semi-transparent over parchment hero bottom ─── */
 
@@ -5148,7 +5162,7 @@ body { margin: 0 !important; padding: 0 !important; }
 @media(max-width:900px){
   .hero{min-height:100svh!important;align-items:flex-end!important;padding-bottom:0!important;}
   .hero-background{width:100%!important;right:0!important;left:0!important;-webkit-mask-image:none!important;mask-image:none!important;}
-  .hero-background::after{background:linear-gradient(to bottom,rgba(13,4,0,.15) 0%,rgba(13,4,0,.08) 40%,rgba(13,4,0,.78) 78%,rgba(13,4,0,.95) 100%)!important;z-index:2!important;}
+  .hero-background::after{display:none!important;}
   .hero-content{position:relative!important;z-index:10!important;padding:0 24px 52px!important;max-width:100%!important;width:100%!important;min-height:100svh!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important;box-sizing:border-box!important;}
   .hero-text{max-width:100%!important;padding-left:0!important;border-left:none!important;}
   .hero-title{font-size:38px!important;line-height:1.08!important;letter-spacing:-1px!important;margin-bottom:14px!important;color:#fff!important;}
@@ -5297,7 +5311,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <!-- Mobile: Static image -->
         <img 
-            src="pexels-cottonbro-5082237 (1).jpg" 
+            src="Palo Duro.jpg" 
             alt="Background" 
             class="hero-mobile-image"
             loading="eager"
@@ -5446,12 +5460,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </section>
 
-<section class="photo-showcase-section">
-  <!-- Western left panel leather bg -->
+<section class="photo-showcase-section" data-svc="1">
+  <!-- Mobile fullscreen bg (JS sets background-image) -->
+  <div class="ps-mobile-bg" id="psMobileBg"></div>
+  <div class="ps-mobile-scrim"></div>
+  <!-- Western left panel leather bg (desktop only) -->
   <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(74,37,16,0.35) 0%, rgba(74,37,16,0.12) 45%, transparent 55%);pointer-events:none;z-index:0;"></div>
-  <!-- Subtle grid texture overlay -->
+  <!-- Subtle grid texture overlay (desktop only) -->
   <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,0.015) 60px,rgba(255,255,255,0.015) 61px);pointer-events:none;z-index:0;"></div>
-  <div class="photo-showcase-inner" style="position:relative;z-index:1;">
+  <div class="photo-showcase-inner">
     <div class="photo-showcase-left">
       <div class="ps-eyebrow">What We Shoot</div>
       <h2 class="ps-heading">Every frame,<br><em>a statement.</em></h2>
@@ -5477,6 +5494,21 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="ps-service-info"><div class="ps-service-name">Video Production</div><div class="ps-service-desc">Cinematic storytelling</div></div>
           <div class="ps-service-arrow">→</div>
         </div>
+      </div>
+      <!-- Mobile service carousel controls -->
+      <div class="ps-mobile-dots" id="psMobileDots" style="margin-bottom:20px;">
+        <button class="ps-mobile-dot" onclick="psGoTo(0)"></button>
+        <button class="ps-mobile-dot active" onclick="psGoTo(1)"></button>
+        <button class="ps-mobile-dot" onclick="psGoTo(2)"></button>
+        <button class="ps-mobile-dot" onclick="psGoTo(3)"></button>
+      </div>
+      <div class="ps-mobile-controls" id="psMobileControls" style="margin-bottom:20px;">
+        <button class="ps-mobile-btn ps-mobile-prev" id="psMobilePrev" onclick="psMobileNav(-1)" aria-label="Previous service">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="ps-mobile-btn ps-mobile-next" id="psMobileNext" onclick="psMobileNav(1)" aria-label="Next service">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
       <button class="ps-cta-btn" onclick="openModal()">Get a Quote</button>
     </div>
@@ -5577,22 +5609,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       </div>
 
-      <!-- Mobile service carousel controls (shown only on mobile) -->
-      <div class="ps-mobile-controls" id="psMobileControls">
-        <button class="ps-mobile-btn ps-mobile-prev" id="psMobilePrev" onclick="psMobileNav(-1)" aria-label="Previous service">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="ps-mobile-btn ps-mobile-next" id="psMobileNext" onclick="psMobileNav(1)" aria-label="Next service">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-      <div class="ps-mobile-dots" id="psMobileDots">
-        <button class="ps-mobile-dot active" onclick="psGoTo(0)"></button>
-        <button class="ps-mobile-dot" onclick="psGoTo(1)"></button>
-        <button class="ps-mobile-dot" onclick="psGoTo(2)"></button>
-        <button class="ps-mobile-dot" onclick="psGoTo(3)"></button>
-      </div>
-
       <!-- Deliverables strip -->
       <div class="ps-deliverables-bar">
         <div class="ps-deliv-item">
@@ -5654,17 +5670,87 @@ document.addEventListener('DOMContentLoaded', function() {
 .ps-avatar:last-child{margin-left:0;}
 @media(max-width:1024px){.psl-wrap.active{grid-template-columns:1fr;}.psl-side-tag{display:none;}}
 @media(max-width:768px){
-  .ps-review-bar{flex-wrap:wrap;gap:12px;}.ps-review-text{font-size:12px;}
-  .photo-showcase-inner{grid-template-columns:1fr!important;gap:40px;}
-  .photo-showcase-section{padding:60px 24px;}
-  .ps-heading{font-size:32px!important;}
-  .ps-services-list{display:none;}
-  .ps-body{max-width:100%;}
-  .ps-mosaic-luxury{min-height:300px;}
-  .psl-wrap.active{grid-template-columns:1fr;}
-  .psl-hero{min-height:280px;}
-  .ps-mobile-controls{display:flex;}
-  .ps-mobile-dots{display:flex;}
+  .ps-review-bar{display:none!important;}
+  /* ── MOBILE: fullscreen photo card ── */
+  .photo-showcase-section{
+    padding:0!important;
+    height:100svh;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  /* BG image injected via JS on .ps-mobile-bg div */
+  .ps-mobile-bg{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center center;
+    transition:background-image 0.5s ease;
+    z-index:0;
+  }
+  /* dark scrim */
+  .ps-mobile-scrim{
+    position:absolute;inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.15) 100%);
+    z-index:1;
+  }
+  /* hide the decorative desktop-only inline overlays (not the inner wrapper) */
+  .photo-showcase-section > div[style*="gradient"]{display:none!important;}
+  /* inner becomes a centered flex column */
+  .photo-showcase-inner{
+    position:relative;z-index:2;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    align-items:flex-start!important;
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+    height:100svh;
+    padding:24px 24px 40px!important;
+    gap:0!important;
+    box-sizing:border-box;
+  }
+  .photo-showcase-right{display:none!important;}
+  .photo-showcase-left{
+    width:100%;
+    box-sizing:border-box;
+    display:flex;flex-direction:column;gap:0;
+  }
+  .ps-eyebrow{margin-bottom:14px;}
+  .ps-heading{font-size:38px!important;margin-bottom:20px;}
+  .ps-body{display:none!important;}
+  /* show ALL service rows stacked, highlight active */
+  .ps-services-list{
+    display:flex!important;
+    flex-direction:column;
+    gap:4px;
+    margin-bottom:28px;
+  }
+  .ps-service-row{
+    display:flex!important;
+    align-items:center;gap:14px;
+    padding:10px 0!important;
+    border:none!important;
+    border-bottom:1px solid rgba(255,255,255,0.08)!important;
+    background:none!important;
+    border-radius:0!important;
+    opacity:0.45;
+    transition:opacity 0.3s;
+  }
+  .ps-service-row.active{
+    opacity:1;
+    border-bottom-color:rgba(244,200,126,0.4)!important;
+  }
+  .ps-service-num{font-size:11px;color:#f4c87e;width:22px;flex-shrink:0;}
+  .ps-service-name{font-size:17px;font-weight:600;color:#fff;line-height:1.2;}
+  .ps-service-desc{font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;}
+  .ps-service-arrow{display:none!important;}
+  .ps-cta-btn{width:100%;padding:16px;font-size:14px;margin-top:0;}
+  .ps-mobile-controls{display:flex;position:relative;z-index:3;margin-top:20px;}
+  .ps-mobile-dots{display:flex;position:relative;z-index:3;margin-bottom:16px;}
+  .ps-deliverables-bar{display:none!important;}
+  .ps-mosaic-luxury{display:none!important;}
 }
 /* Photo showcase mobile carousel controls */
 .ps-mobile-controls{
@@ -5706,12 +5792,23 @@ document.addEventListener('DOMContentLoaded', function() {
 </style>
 
 <script>
+var psMobileBgs = [
+  "url('pexels-davdkuko-35602737.jpg')",
+  "url('pexels-frank-minjarez-333886454-16122591.jpg')",
+  "url('pexels-danikprihodko-15865461.jpg')",
+  "url('pexels-cottonbro-5082237 (1).jpg')"
+];
 var psCurrentIdx = 1;
 function setActiveService(idx){
   document.querySelectorAll('.ps-service-row').forEach(function(r,i){r.classList.toggle('active',i===idx);});
   document.querySelectorAll('.psl-wrap').forEach(function(t){t.classList.remove('active');t.style.display='none';});
   document.querySelectorAll('.ps-svc-'+idx).forEach(function(t){t.classList.add('active');t.style.display='';});
   psCurrentIdx = idx;
+  // update mobile background photo directly
+  var bg = document.getElementById('psMobileBg');
+  if(bg) bg.style.backgroundImage = psMobileBgs[idx];
+  var sec = document.querySelector('.photo-showcase-section');
+  if(sec) sec.setAttribute('data-svc', idx);
   // sync mobile dots
   document.querySelectorAll('.ps-mobile-dot').forEach(function(d,i){d.classList.toggle('active',i===idx);});
   // sync mobile buttons
@@ -5740,13 +5837,18 @@ document.addEventListener('DOMContentLoaded', function(){
   });
   // Init button states
   var prev = document.getElementById('psMobilePrev');
-  if(prev) prev.disabled = true;
+  if(prev) prev.disabled = false;
+  // set initial bg
+  var bg = document.getElementById('psMobileBg');
+  if(bg) bg.style.backgroundImage = psMobileBgs[psCurrentIdx];
+  var sec = document.querySelector('.photo-showcase-section');
+  if(sec) sec.setAttribute('data-svc', psCurrentIdx);
 });
 </script>
 
 <style>
 .photo-showcase-section{background:#000;padding:100px 60px 100px;overflow:hidden;position:relative;border-top:1px solid rgba(123,68,34,0.5);border-bottom:1px solid rgba(123,68,34,0.5);}
-.photo-showcase-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}
+.photo-showcase-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center;position:relative;z-index:2;}
 .ps-eyebrow{font-size:10px;font-weight:700;letter-spacing:5px;color:#f4c87e;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:12px}.ps-eyebrow::before,.ps-eyebrow::after{content:'';display:inline-block;width:24px;height:1px;background:#f4c87e;opacity:0.5;}
 .ps-heading{font-family:'Playfair Display',Georgia,serif;font-size:52px;font-weight:700;color:#fff;line-height:1.15;margin-bottom:24px}
 .ps-heading em{color:#f4c87e;font-style:italic}
@@ -9055,11 +9157,15 @@ select.co-form-input { cursor: pointer; }
         document.getElementById('cartOverlay').classList.add('active');
         document.getElementById('cartDrawer').classList.add('open');
         document.body.style.overflow = 'hidden';
+        var cb = document.querySelector('.chatbot-container');
+        if (cb) cb.style.display = 'none';
     };
     window.closeCart = window.closeIndexCart = function() {
         document.getElementById('cartOverlay').classList.remove('active');
         document.getElementById('cartDrawer').classList.remove('open');
         document.body.style.overflow = '';
+        var cb = document.querySelector('.chatbot-container');
+        if (cb) cb.style.display = '';
     };
 
     /* ── CHECKOUT ── */
