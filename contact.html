@@ -62,7 +62,7 @@ nav *{pointer-events:auto!important}
 
 /* MOBILE NAV */
 @media(max-width:900px){
-  nav{padding:0 16px!important;top:34px!important;height:56px!important;min-height:56px!important}
+  nav{padding:0 16px!important;height:56px!important;min-height:56px!important}
   .nav-container{height:56px!important}
   .nav-links{position:fixed!important;top:0!important;right:-100%!important;width:min(300px,85vw)!important;height:100dvh!important;background:#1a0902!important;flex-direction:column!important;padding:80px 24px 40px!important;gap:4px!important;transition:right .35s cubic-bezier(.4,0,.2,1)!important;box-shadow:-6px 0 60px rgba(0,0,0,.7)!important;z-index:9998!important;list-style:none!important;align-items:flex-start!important;overflow-y:auto!important;display:flex!important}
   .nav-links.active{right:0!important}
@@ -189,9 +189,29 @@ nav *{pointer-events:auto!important}
 .values-header{text-align:center;margin-bottom:72px}
 .values-title{font-family:'Playfair Display',Georgia,serif;font-size:48px;font-weight:700;font-style:italic;line-height:1.2;color:#fff;margin-bottom:16px}
 .values-subtitle{font-size:16px;color:rgba(255,255,255,.5);max-width:500px;margin:0 auto;line-height:1.7}
-.values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px}
-.value-card{background:rgba(255,255,255,.04);border:1px solid rgba(244,200,126,.1);border-radius:4px;padding:44px;transition:background .3s,border-color .3s}
+.values-slider{position:relative}
+.values-track-wrap{overflow:hidden;border-radius:8px}
+.values-grid{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);will-change:transform}
+.value-card{background:rgba(255,255,255,.04);border:1px solid rgba(244,200,126,.1);border-radius:4px;padding:44px;transition:background .3s,border-color .3s,opacity .4s;flex:0 0 calc(33.333% - 19px);margin-right:28px;box-sizing:border-box}
+.value-card:last-child{margin-right:0}
 .value-card:hover{background:rgba(255,255,255,.07);border-color:rgba(244,200,126,.2)}
+.slider-btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(42,16,5,.7);border:1px solid rgba(244,200,126,.3);color:#f4c87e;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;transition:background .25s,border-color .25s,opacity .25s}
+.slider-btn:hover{background:#7B4422;border-color:rgba(244,200,126,.7)}
+.slider-btn:disabled{opacity:.25;cursor:default;pointer-events:none}
+.slider-btn svg{width:20px;height:20px;stroke:currentColor;stroke-width:2.2;fill:none}
+.slider-btn-prev{left:-28px}
+.slider-btn-next{right:-28px}
+.slider-dots{display:flex;justify-content:center;gap:8px;margin-top:32px}
+.slider-dot{width:24px;height:3px;border-radius:2px;background:rgba(244,200,126,.2);cursor:pointer;transition:background .3s,width .3s}
+.slider-dot.active{background:#f4c87e;width:36px}
+@media(max-width:900px){
+  .value-card{flex:0 0 100%;margin-right:20px}
+  .slider-btn-prev{left:-8px}
+  .slider-btn-next{right:-8px}
+}
+@media(min-width:901px) and (max-width:1200px){
+  .value-card{flex:0 0 calc(50% - 14px);margin-right:28px}
+}
 .value-quote-icon{font-family:'Playfair Display',serif;font-size:56px;font-style:italic;color:var(--gold);line-height:1;margin-bottom:20px;opacity:.6}
 .value-text{font-size:16px;line-height:1.75;color:rgba(255,255,255,.78);margin-bottom:36px}
 .value-author{display:flex;align-items:center;gap:16px;padding-top:24px;border-top:1px solid rgba(244,200,126,.12)}
@@ -258,12 +278,12 @@ nav *{pointer-events:auto!important}
 .reveal.visible{opacity:1;transform:none}
 
 /* BACK TO TOP */
-.btt-btn{position:fixed;bottom:96px;left:24px;width:44px;height:44px;border-radius:50%;background:#2A1005;border:1px solid rgba(244,200,126,.35);color:#f4c87e;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:199997;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .3s ease,transform .3s ease,background .25s}
+.btt-btn{position:fixed;bottom:96px;left:24px;width:44px;height:44px;border-radius:50%;background:#2A1005;border:1px solid rgba(244,200,126,.35);color:#f4c87e;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:11000;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .3s ease,transform .3s ease,background .25s}
 .btt-btn.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .btt-btn:hover{background:#7B4422}
 
 /* CHATBOT BUBBLE */
-.chatbot-bubble{position:fixed;bottom:96px;right:24px;background:#fff;border-radius:16px 16px 4px 16px;padding:14px 18px;box-shadow:0 8px 32px rgba(42,16,5,.22);display:flex;align-items:center;gap:10px;z-index:199998;animation:bubble-in .5s cubic-bezier(.34,1.56,.64,1) forwards;cursor:pointer;border:1px solid rgba(123,68,34,.12);max-width:230px}
+.chatbot-bubble{position:fixed;bottom:96px;right:24px;background:#fff;border-radius:16px 16px 4px 16px;padding:14px 18px;box-shadow:0 8px 32px rgba(42,16,5,.22);display:flex;align-items:center;gap:10px;z-index:11001;animation:bubble-in .5s cubic-bezier(.34,1.56,.64,1) forwards;cursor:pointer;border:1px solid rgba(123,68,34,.12);max-width:230px}
 .chatbot-bubble::after{content:'';position:absolute;bottom:-8px;right:20px;width:0;height:0;border-left:8px solid transparent;border-top:8px solid #fff}
 .chatbot-bubble.hidden{animation:bubble-out .3s ease forwards;pointer-events:none}
 .chatbot-bubble-logo{width:34px;height:34px;background:linear-gradient(135deg,#7B4422,#4A2510);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -276,7 +296,7 @@ nav *{pointer-events:auto!important}
 @keyframes bubble-out{from{opacity:1;transform:scale(1);transform-origin:bottom right}to{opacity:0;transform:scale(.8) translateY(6px);transform-origin:bottom right}}
 
 /* CHATBOT */
-.chatbot-toggle{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:linear-gradient(135deg,#7B4422,#2A1005);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(42,16,5,.45),0 0 0 2px rgba(244,200,126,.4);z-index:200000;transition:all .3s;border:none}
+.chatbot-toggle{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:linear-gradient(135deg,#7B4422,#2A1005);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(42,16,5,.45),0 0 0 2px rgba(244,200,126,.4);z-index:11003;transition:all .3s;border:none}
 .chatbot-toggle:hover{transform:scale(1.08)}
 .chatbot-toggle .close-icon{display:none}
 .chatbot-toggle .chat-icon{display:block}
@@ -286,7 +306,7 @@ nav *{pointer-events:auto!important}
 .chatbot-toggle.active svg{stroke:#f4c87e}
 .chatbot-toggle svg{width:22px;height:22px;stroke:#F5EDD6;stroke-width:2}
 .chatbot-badge{position:absolute;top:-3px;right:-3px;background:#c0392b;color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid #fff}
-.chatbot-window{position:fixed;bottom:100px;right:24px;width:380px;max-height:calc(100vh - 160px);background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.2);display:none;flex-direction:column;z-index:199999;overflow:hidden}
+.chatbot-window{position:fixed;bottom:100px;right:24px;width:380px;max-height:calc(100vh - 160px);background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.2);display:none;flex-direction:column;z-index:11002;overflow:hidden}
 .chatbot-window.active{display:flex}
 .chatbot-header{background:linear-gradient(135deg,#2A1005,#4A2510);color:#F5EDD6;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
 .chatbot-header-info{display:flex;align-items:center;gap:12px}
@@ -371,49 +391,85 @@ nav *{pointer-events:auto!important}
   .ft-columns{grid-template-columns:1fr!important;padding:32px 16px!important}
 }
 </style>
-<style>
+<style id="jwm-fix">
 @media(max-width:900px){
-  .announcement-banner{font-size:10px!important;letter-spacing:0!important;padding:8px 16px!important;min-height:34px!important;height:auto!important;overflow:hidden!important;white-space:nowrap!important;}
-  .announcement-banner::before,.announcement-banner::after{display:none!important;}
-  nav{padding:0 16px!important;height:56px!important;flex-wrap:nowrap!important;display:flex!important;align-items:center!important;}
-  .nav-container{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;flex-wrap:nowrap!important;height:56px!important;width:100%!important;}
-  .nav-logo{flex-shrink:0!important;}.jwm-logo-jwm{font-size:18px!important;}
-  .contact-info{display:flex!important;flex-direction:row!important;align-items:center!important;gap:8px!important;flex-wrap:nowrap!important;margin-left:auto!important;flex-shrink:0!important;}
+
+  /* NAV ROW layout */
+  .contact-info{
+    display:flex!important;flex-direction:row!important;
+    align-items:center!important;gap:8px!important;
+    flex-wrap:nowrap!important;margin-left:auto!important;flex-shrink:0!important;
+  }
   .phone,.login-link,.nav-cta-btn{display:none!important;}
-  .nav-cart-icon{width:40px!important;height:40px!important;border-radius:8px!important;flex-shrink:0!important;display:flex!important;align-items:center!important;justify-content:center!important;}
-  .mobile-menu-btn{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:5px!important;width:40px!important;height:40px!important;background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:8px!important;cursor:pointer!important;padding:0!important;flex-shrink:0!important;z-index:10002!important;}
-  .mobile-menu-btn span{display:block!important;width:18px!important;height:1.5px!important;background:#fff!important;border-radius:2px!important;transition:all .3s!important;margin:0!important;opacity:1!important;visibility:visible!important;}
-  .mobile-menu-btn.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg)!important;background:#f4c87e!important;}
-  .mobile-menu-btn.active span:nth-child(2){opacity:0!important;transform:scaleX(0)!important;}
-  .mobile-menu-btn.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)!important;background:#f4c87e!important;}
-  .nav-links{position:fixed!important;top:0!important;left:0!important;right:auto!important;transform:translateX(-100%)!important;width:min(340px,88vw)!important;height:100dvh!important;background:#140800!important;flex-direction:column!important;align-items:flex-start!important;padding:80px 0 48px!important;gap:0!important;list-style:none!important;z-index:100000!important;transition:transform .38s cubic-bezier(.4,0,.2,1)!important;box-shadow:6px 0 48px rgba(0,0,0,.9)!important;border-right:1px solid rgba(244,200,126,.12)!important;display:flex!important;overflow-y:auto!important;}
-  .nav-links.active,.nav-links.mob-nav-open{transform:translateX(0)!important;}
-  .nav-links>li{width:100%!important;border-bottom:1px solid rgba(255,255,255,.05)!important;list-style:none!important;}
-  .nav-links>li>a{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:18px 28px!important;font-size:11px!important;letter-spacing:3px!important;color:rgba(255,255,255,.82)!important;text-transform:uppercase!important;font-weight:600!important;min-height:56px!important;width:100%!important;}
-  .nav-links>li>a::after{display:none!important;}
-  .dropdown-menu{position:static!important;transform:none!important;opacity:1!important;visibility:visible!important;background:rgba(0,0,0,.3)!important;border:none!important;box-shadow:none!important;max-height:0!important;overflow:hidden!important;transition:max-height .3s!important;padding:0!important;width:100%!important;}
-  .has-dropdown.mob-dd-open>.dropdown-menu{max-height:400px!important;padding:4px 0 8px!important;}
-  .dropdown-menu a{padding:12px 28px 12px 48px!important;display:block!important;font-size:11px!important;color:rgba(255,255,255,.45)!important;}
-  .dropdown-menu a:hover{color:#f4c87e!important;background:transparent!important;padding-left:52px!important;}
-  .has-dropdown.mob-dd-open>a .dropdown-icon{transform:rotate(180deg)!important;}
-  .jwm-gno{position:fixed!important;inset:0!important;background:rgba(0,0,0,.72)!important;backdrop-filter:blur(4px)!important;z-index:99999!important;opacity:0!important;pointer-events:none!important;transition:opacity .35s!important;}
-  .jwm-gno.on{opacity:1!important;pointer-events:auto!important;}
-  .jwm-gnx{position:absolute!important;top:20px!important;right:20px!important;width:36px!important;height:36px!important;background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:8px!important;color:rgba(255,255,255,.75)!important;display:flex!important;align-items:center!important;justify-content:center!important;cursor:pointer!important;font-size:22px!important;z-index:100001!important;}
-  video,.hero-video,.hero-video-slide,.hero-vid-slide{display:none!important;visibility:hidden!important;}
-  .hero-mobile-image,.hero-mobile-img,.hero-vid-mobile-fallback{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;z-index:0!important;}
+
+  /* CART ICON — let each page keep its own original mobile size,
+     just ensure border-radius is consistent */
+  .nav-cart-icon{
+    flex-shrink:0!important;
+    display:flex!important;align-items:center!important;justify-content:center!important;
+    border-radius:8px!important;
+  }
+
+  /* HAMBURGER — always visible, stays as 3 LINES even when active
+     (overrides index+pricing X transforms so all pages are consistent) */
+  .mobile-menu-btn{
+    display:flex!important;flex-direction:column!important;
+    align-items:center!important;justify-content:center!important;
+    gap:5px!important;background:none!important;border:none!important;
+    padding:8px!important;cursor:pointer!important;flex-shrink:0!important;
+    z-index:10001!important;position:relative!important;
+    opacity:1!important;visibility:visible!important;overflow:visible!important;
+  }
+  .mobile-menu-btn span{
+    display:block!important;width:22px!important;height:2px!important;
+    background:#ffffff!important;border-radius:2px!important;
+    opacity:1!important;visibility:visible!important;
+    transition:none!important;
+  }
+  /* NEUTRALISE the X animation on ALL pages — stays as hamburger lines */
+  .mobile-menu-btn.active span:nth-child(1),
+  .mobile-menu-btn.active span:nth-child(3){transform:none!important;}
+  .mobile-menu-btn.active span:nth-child(2){opacity:1!important;transform:none!important;}
+
+  /* HERO margin */
+  .hero,.page-hero{margin-top:90px!important;}
+
+  /* OVERLAY */
+  .jwm-ov{
+    position:fixed!important;inset:0!important;
+    background:rgba(0,0,0,0.65)!important;z-index:9990!important;
+    opacity:0!important;pointer-events:none!important;transition:opacity 0.3s!important;display:block!important;
+  }
+  .jwm-ov.on{opacity:1!important;pointer-events:auto!important;}
+
+  /* CHATBOT */
+  body.nav-open .chatbot-toggle,
+  body.nav-open .chatbot-bubble,
+  body.nav-open .chatbot-window{display:none!important;}
+
+  /* CART DRAWER */
+  .cart-drawer{width:min(420px,90vw)!important;right:calc(-1 * min(420px,90vw))!important;}
+  .cart-drawer.open{right:0!important;}
+
+  /* VIDEOS */
+  video,.hero-vid-slide{display:none!important;visibility:hidden!important;}
+  .hero-mobile-img,.hero-vid-mobile-fallback{
+    display:block!important;position:absolute!important;inset:0!important;
+    width:100%!important;height:100%!important;object-fit:cover!important;z-index:0!important;
+  }
   .hero-video-dots{display:none!important;}
-  .chatbot-bubble{display:flex!important;position:fixed!important;bottom:82px!important;right:16px!important;z-index:199990!important;max-width:220px!important;}
-  .chatbot-toggle{bottom:20px!important;right:18px!important;width:50px!important;height:50px!important;}
-  .chatbot-window{bottom:80px!important;right:10px!important;left:10px!important;width:auto!important;max-width:none!important;max-height:60vh!important;}
-  .btt-btn{bottom:20px!important;left:18px!important;width:40px!important;height:40px!important;}
+
+  /* FOOTER */
+  .ft-built{display:flex!important;}
   .ft-columns{grid-template-columns:1fr 1fr!important;padding:36px 20px!important;gap:24px!important;}
   .ft-bottom{flex-direction:column!important;align-items:flex-start!important;padding:16px 20px!important;gap:10px!important;}
   .ft-legal{flex-wrap:wrap!important;gap:10px!important;}
-  .ft-built{display:flex!important;font-size:11px!important;}
   .ft-payment{padding:16px 20px!important;flex-wrap:wrap!important;gap:10px!important;}
 }
-@media(max-width:480px){.ft-columns{grid-template-columns:1fr!important;padding:28px 16px!important;}}
-</style><style>
+@media(max-width:480px){
+  .ft-columns{grid-template-columns:1fr!important;padding:28px 16px!important;}
+}
+</style><style id="jwm-page">
 @media(max-width:900px){
   [class*="page-hero"]{min-height:52vh!important;max-height:52vh!important;}
   [class*="page-hero"] h1{font-size:30px!important;}
@@ -441,6 +497,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   sync();
   window.addEventListener('resize', sync);
+  window.addEventListener('load', sync);
 });
 </script>
 
@@ -701,40 +758,51 @@ document.addEventListener('DOMContentLoaded', function() {
       <h2 class="values-title">Why Clients Choose JWM</h2>
       <p class="values-subtitle">Real feedback from the people we&rsquo;ve had the honor of working with.</p>
     </div>
-    <div class="values-grid">
-      <div class="value-card reveal">
-        <div class="value-quote-icon">&ldquo;</div>
-        <p class="value-text">From the initial consult to final delivery, the JWM team was an absolute pleasure to work with. The product shots exceeded every expectation — our campaign saw a 40% lift in engagement the week they went live.</p>
-        <div class="value-author">
-          <div class="value-icon"><i class="fa-solid fa-store"></i></div>
-          <div>
-            <div class="value-author-name">Marcus T.</div>
-            <div class="value-author-role">Brand Director &middot; Apparel Co.</div>
+    <div class="values-slider" id="valuesSlider">
+      <button class="slider-btn slider-btn-prev" id="sliderPrev" aria-label="Previous review" disabled>
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="values-track-wrap">
+        <div class="values-grid" id="valuesTrack">
+          <div class="value-card">
+            <div class="value-quote-icon">&ldquo;</div>
+            <p class="value-text">From the initial consult to final delivery, the JWM team was an absolute pleasure to work with. The product shots exceeded every expectation &mdash; our campaign saw a 40% lift in engagement the week they went live.</p>
+            <div class="value-author">
+              <div class="value-icon"><i class="fa-solid fa-store"></i></div>
+              <div>
+                <div class="value-author-name">Marcus T.</div>
+                <div class="value-author-role">Brand Director &middot; Apparel Co.</div>
+              </div>
+            </div>
+          </div>
+          <div class="value-card">
+            <div class="value-quote-icon">&ldquo;</div>
+            <p class="value-text">We booked JWM for our anniversary session and it was the single best creative decision we made all year. The images are cinematic, intimate, and completely ours. We&rsquo;ll be back for every milestone.</p>
+            <div class="value-author">
+              <div class="value-icon"><i class="fa-solid fa-heart"></i></div>
+              <div>
+                <div class="value-author-name">Priya &amp; Daniel R.</div>
+                <div class="value-author-role">Portrait Clients</div>
+              </div>
+            </div>
+          </div>
+          <div class="value-card">
+            <div class="value-quote-icon">&ldquo;</div>
+            <p class="value-text">Hired JWM for a three-day commercial shoot across Austin. The production quality was unmatched &mdash; drone, stills, and video all captured flawlessly. Our team has never looked better, and they nailed our brand story.</p>
+            <div class="value-author">
+              <div class="value-icon"><i class="fa-solid fa-building"></i></div>
+              <div>
+                <div class="value-author-name">Sandra K.</div>
+                <div class="value-author-role">VP Marketing &middot; Tech Startup</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="value-card reveal">
-        <div class="value-quote-icon">&ldquo;</div>
-        <p class="value-text">We booked JWM for our anniversary session and it was the single best creative decision we made all year. The images are cinematic, intimate, and completely ours. We&rsquo;ll be back for every milestone.</p>
-        <div class="value-author">
-          <div class="value-icon"><i class="fa-solid fa-heart"></i></div>
-          <div>
-            <div class="value-author-name">Priya &amp; Daniel R.</div>
-            <div class="value-author-role">Portrait Clients</div>
-          </div>
-        </div>
-      </div>
-      <div class="value-card reveal">
-        <div class="value-quote-icon">&ldquo;</div>
-        <p class="value-text">Hired JWM for a three-day commercial shoot across Austin. The production quality was unmatched &mdash; drone, stills, and video all captured flawlessly. Our team has never looked better, and they nailed our brand story.</p>
-        <div class="value-author">
-          <div class="value-icon"><i class="fa-solid fa-building"></i></div>
-          <div>
-            <div class="value-author-name">Sandra K.</div>
-            <div class="value-author-role">VP Marketing &middot; Tech Startup</div>
-          </div>
-        </div>
-      </div>
+      <button class="slider-btn slider-btn-next" id="sliderNext" aria-label="Next review">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="slider-dots" id="sliderDots"></div>
     </div>
   </div>
 </section>
@@ -1198,48 +1266,109 @@ function handleSubmit(e) {
   else { setTimeout(obs, 100); }
 })();
 
+/* REVIEWS SLIDER */
+(function() {
+  var track    = document.getElementById('valuesTrack');
+  var prevBtn  = document.getElementById('sliderPrev');
+  var nextBtn  = document.getElementById('sliderNext');
+  var dotsWrap = document.getElementById('sliderDots');
+  if (!track) return;
+
+  var cards   = Array.from(track.querySelectorAll('.value-card'));
+  var current = 0;
+  var total   = cards.length;
+
+  function getPerView() {
+    var w = window.innerWidth;
+    if (w >= 1201) return 3;
+    if (w >= 901)  return 2;
+    return 1;
+  }
+
+  function maxIndex(pv) { return Math.max(0, total - pv); }
+
+  function buildDots(pv) {
+    dotsWrap.innerHTML = '';
+    var count = maxIndex(pv) + 1;
+    for (var i = 0; i < count; i++) {
+      var d = document.createElement('button');
+      d.className = 'slider-dot' + (i === current ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      (function(idx) { d.addEventListener('click', function() { goTo(idx); }); })(i);
+      dotsWrap.appendChild(d);
+    }
+  }
+
+  function updateDots() {
+    dotsWrap.querySelectorAll('.slider-dot').forEach(function(d, i) {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function goTo(idx) {
+    var pv   = getPerView();
+    current  = Math.max(0, Math.min(idx, maxIndex(pv)));
+    var gap  = 28;
+    var wrap = track.parentElement.offsetWidth;
+    var cardW = pv > 1 ? Math.floor((wrap - gap * (pv - 1)) / pv) : wrap;
+    track.style.transform = 'translateX(' + (-current * (cardW + gap)) + 'px)';
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current >= maxIndex(pv);
+    updateDots();
+  }
+
+  function setup() {
+    var pv   = getPerView();
+    var gap  = 28;
+    var wrap = track.parentElement.offsetWidth;
+    var cardW = pv > 1 ? Math.floor((wrap - gap * (pv - 1)) / pv) : wrap;
+    cards.forEach(function(c, i) {
+      c.style.flex        = '0 0 ' + cardW + 'px';
+      c.style.minWidth    = cardW + 'px';
+      c.style.marginRight = i < cards.length - 1 ? gap + 'px' : '0';
+    });
+    current = Math.min(current, maxIndex(pv));
+    buildDots(pv);
+    goTo(current);
+  }
+
+  prevBtn.addEventListener('click', function() { goTo(current - 1); });
+  nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+  /* touch swipe */
+  var touchStartX = 0;
+  track.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  track.addEventListener('touchend', function(e) {
+    var dx = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) { dx > 0 ? goTo(current + 1) : goTo(current - 1); }
+  }, { passive: true });
+
+  setup();
+  window.addEventListener('resize', setup);
+})();
+
 /* CLOSE MODAL ON BACKDROP CLICK */
 document.getElementById('successModal').addEventListener('click', function(e) {
   if (e.target === this) this.classList.remove('active');
 });
 </script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  if (window.innerWidth > 900) return;
-  function syncNav() {
-    var b = document.querySelector('.announcement-banner');
-    var n = document.querySelector('nav');
-    if (!b || !n) return;
-    var bh = b.getBoundingClientRect().height;
-    n.style.top = bh + 'px';
-    var h = document.querySelector('.page-hero,.hero');
-    if (h) h.style.marginTop = (bh + 56) + 'px';
-  }
-  syncNav(); window.addEventListener('resize', syncNav);
-  var ov = document.createElement('div'); ov.className = 'jwm-gno'; document.body.appendChild(ov);
+<script id="jwm-js">
+document.addEventListener('DOMContentLoaded', function(){
+  var ov = document.createElement('div');
+  ov.className = 'jwm-ov';
+  document.body.appendChild(ov);
   var nl = document.querySelector('.nav-links');
-  if (nl && !nl.querySelector('.jwm-gnx')) {
-    var nx = document.createElement('button'); nx.className = 'jwm-gnx'; nx.innerHTML = '&times;';
-    nl.appendChild(nx); nx.addEventListener('click', closeN);
-  }
   var hb = document.querySelector('.mobile-menu-btn') || document.getElementById('mobileMenuBtn');
-  var hbC;
-  if (hb) { hbC = hb.cloneNode(true); hb.parentNode.replaceChild(hbC, hb); hbC.addEventListener('click', function (e) { e.stopPropagation(); toggle(); }); }
-  function openN() { if(nl)nl.classList.add('mob-nav-open','active'); if(hbC)hbC.classList.add('active'); ov.classList.add('on'); document.body.style.overflow='hidden'; }
-  function closeN() { if(nl)nl.classList.remove('mob-nav-open','active'); if(hbC)hbC.classList.remove('active'); ov.classList.remove('on'); document.body.style.overflow=''; }
-  function toggle() { (nl&&(nl.classList.contains('mob-nav-open')||nl.classList.contains('active')))?closeN():openN(); }
-  ov.addEventListener('click', closeN);
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape')closeN(); });
-  if (nl) {
-    nl.querySelectorAll('.has-dropdown>a').forEach(function(a){
-      a.addEventListener('click', function(e){
-        if(window.innerWidth>900)return; e.preventDefault();
-        var li=a.parentElement; var was=li.classList.contains('mob-dd-open');
-        nl.querySelectorAll('.has-dropdown').forEach(function(x){x.classList.remove('mob-dd-open');});
-        if(!was)li.classList.add('mob-dd-open');
-      });
-    });
+  if(nl){
+    new MutationObserver(function(){
+      var open = nl.classList.contains('active');
+      ov.classList.toggle('on', open);
+      document.body.classList.toggle('nav-open', open);
+    }).observe(nl, {attributes:true, attributeFilter:['class']});
   }
+  ov.addEventListener('click', function(){ if(hb) hb.click(); });
 });
 </script>
 </body>
